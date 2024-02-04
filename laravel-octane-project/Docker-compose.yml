@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Php.Dockerfile
+    image: laravel-octane-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www
+    environment:
+      - "APP_ENV=local"
