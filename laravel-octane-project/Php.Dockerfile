@@ -22,9 +22,14 @@ COPY . .
 # Install dependencies
 RUN composer install --optimize-autoloader --no-dev
 
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
+
 # Change ownership of our applications
 RUN chown -R www-data:www-data /var/www
 
 # Expose port 8000 and start php-fpm server
 EXPOSE 8000
-CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=8000"]
+
+CMD ["php", "artisan", "octane:start", "--host=localhost", "--port=8000", "--watch"]
+# php artisan octane:start --host=localhost --port=8000 --watch
