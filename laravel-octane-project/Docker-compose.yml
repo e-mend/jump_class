@@ -11,3 +11,22 @@ services:
       - .:/var/www
     environment:
       - "APP_ENV=local"
+    networks:
+      - laravel-octane-network
+  db:
+    image: mongo:latest
+    container_name: mail-db
+    restart: always
+    volumes: 
+      - ./docker-compose/mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user1
+      MONGO_INITDB_ROOT_PASSWORD: teste@321
+    ports:
+      - "27017:27017"
+    networks:
+      - laravel-octane-network    
+      
+networks:
+  laravel-octane-network:
+    driver: bridge

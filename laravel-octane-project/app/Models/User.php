@@ -2,44 +2,31 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use MongoDB\Laravel\Eloquent\Model as AuthenticatableMongoDB;
 
-class User extends Authenticatable
+class User extends AuthenticatableMongoDB
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $connection = 'mongodb';
+    protected $collection = 'user';
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'id', 
+        'name', 
+        'surname', 
+        'street', 
+        'company', 
+        'username', 
+        'e-mail', 
+        'password', 
+        'plan', 
+        'job_backup_date', 
+        'last_backup_date' , 
+        'active'
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    public $timestamps = false;
 }

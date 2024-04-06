@@ -4,8 +4,11 @@ FROM php:8.2-fpm
 # Install system dependencies & PHP extensions needed by Laravel and Swoole
 RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev zip unzip \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
-&& docker-php-ext-install gd pdo pdo_mysql pcntl opcache && pecl install swoole \
+&& docker-php-ext-install gd pcntl opcache && pecl install swoole \
 && docker-php-ext-enable swoole
+
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
 
 # Set working directory
 WORKDIR /var/www
