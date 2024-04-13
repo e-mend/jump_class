@@ -2,10 +2,24 @@
 FROM php:8.2-fpm
 
 # Install system dependencies & PHP extensions needed by Laravel and Swoole
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev zip unzip \
-&& docker-php-ext-configure gd --with-freetype --with-jpeg \
-&& docker-php-ext-install gd pcntl opcache && pecl install swoole \
-&& docker-php-ext-enable swoole
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libcurl4-openssl-dev \
+    pkg-config \
+    libpng-dev \
+    libjpeg-dev \
+    libonig-dev \
+    libzip-dev \
+    libssl-dev \
+    libxml2-dev \
+    libfreetype6-dev \
+    supervisor \
+    zip unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pcntl opcache \
+    && pecl install swoole \
+    && docker-php-ext-enable swoole
 
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb

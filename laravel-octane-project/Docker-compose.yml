@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: Php.Dockerfile
     image: laravel-octane-app
+    container_name: jump-app
     ports:
       - "8000:8000"
     volumes:
@@ -15,7 +16,7 @@ services:
       - laravel-octane-network
   db:
     image: mongo:latest
-    container_name: mail-db
+    container_name: jump-db
     restart: always
     volumes: 
       - ./docker-compose/mongodb:/data/db
